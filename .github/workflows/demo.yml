@@ -1,8 +1,5 @@
 name: demo
-on:
-  push:
-    tags:
-      - '*'
+on: workflow_dispatch
 jobs:
   checks:
     name: Checks
