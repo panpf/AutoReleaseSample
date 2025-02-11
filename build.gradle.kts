@@ -28,6 +28,7 @@ buildscript {
         classpath(libs.gradlePlugin.jetbrainsCompose)
         classpath(libs.gradlePlugin.kotlin)
         classpath(libs.gradlePlugin.kotlinComposeCompiler)
+        classpath(libs.gradlePlugin.mavenPublish)
     }
 }
 
@@ -47,6 +48,7 @@ allprojects {
 allprojects {
     kotlinDependenciesConfig()
     jvmTargetConfig()
+    publishConfig()
 }
 
 fun Project.kotlinDependenciesConfig() {
@@ -71,5 +73,27 @@ fun Project.jvmTargetConfig() {
     }
     tasks.withType<KotlinJvmCompile>().configureEach {
         compilerOptions.jvmTarget = JvmTarget.JVM_1_8
+    }
+}
+
+fun Project.publishConfig() {
+    if (
+//        && hasProperty("mavenCentralUsername")    // configured in the ~/.gradle/gradle.properties file
+//        && hasProperty("mavenCentralPassword")    // configured in the ~/.gradle/gradle.properties file
+        hasProperty("versionName")    // configured in the rootProject/gradle.properties file
+        && hasProperty("GROUP")    // configured in the rootProject/gradle.properties file
+        && hasProperty("POM_ARTIFACT_ID")    // configured in the project/gradle.properties file
+    ) {
+        apply { plugin("com.vanniktech.maven.publish") }
+
+        configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
+            version = property("versionName").toString()
+            if (hasProperty("signing.keyId")    // configured in the ~/.gradle/gradle.properties file
+                && hasProperty("signing.password")    // configured in the ~/.gradle/gradle.properties file
+                && hasProperty("signing.secretKeyRingFile")    // configured in the ~/.gradle/gradle.properties file
+            ) {
+                signAllPublications()
+            }
+        }
     }
 }
