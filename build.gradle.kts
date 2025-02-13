@@ -96,7 +96,7 @@ fun Project.publishConfig() {
                 signAllPublications()
             } else if (
                 hasProperty("ORG_GRADLE_PROJECT_signingInMemoryKey")    // configured in the github workflow env
-                && hasProperty("ORG_GRADLE_PROJECT_signingInMemoryKeyPassword")    // configured in the github workflow env.properties file
+                && hasProperty("ORG_GRADLE_PROJECT_signingInMemoryKeyPassword")    // configured in the github workflow env
             ) {
                 // github workflow
                 signAllPublications()
