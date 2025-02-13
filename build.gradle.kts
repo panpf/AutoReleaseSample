@@ -88,19 +88,19 @@ fun Project.publishConfig() {
 
         configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
             version = property("versionName").toString()
-            if (hasProperty("signing.keyId")    // configured in the ~/.gradle/gradle.properties file
-                && hasProperty("signing.password")    // configured in the ~/.gradle/gradle.properties file
-                && hasProperty("signing.secretKeyRingFile")    // configured in the ~/.gradle/gradle.properties file
-            ) {
+//            if (hasProperty("signing.keyId")    // configured in the ~/.gradle/gradle.properties file
+//                && hasProperty("signing.password")    // configured in the ~/.gradle/gradle.properties file
+//                && hasProperty("signing.secretKeyRingFile")    // configured in the ~/.gradle/gradle.properties file
+//            ) {
                 // Local gradle global properties
                 signAllPublications()
-            } else if (
-                hasProperty("ORG_GRADLE_PROJECT_signingInMemoryKey")    // configured in the github workflow env
-                && hasProperty("ORG_GRADLE_PROJECT_signingInMemoryKeyPassword")    // configured in the github workflow env
-            ) {
-                // github workflow
-                signAllPublications()
-            }
+//            } else if (
+//                hasProperty("ORG_GRADLE_PROJECT_signingInMemoryKey")    // configured in the github workflow env
+//                && hasProperty("ORG_GRADLE_PROJECT_signingInMemoryKeyPassword")    // configured in the github workflow env
+//            ) {
+//                 github workflow
+//                signAllPublications()
+//            }
         }
     }
 }
