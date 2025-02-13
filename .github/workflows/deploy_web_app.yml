@@ -18,7 +18,7 @@ jobs:
           java-version: 17
 
       - name: Build the project
-        run: ./gradlew wasmJsBrowserDistribution
+        run: ./gradlew :composeApp:wasmJsBrowserDistribution
 
       - name: Check out the gh-pages branch
         run: |
