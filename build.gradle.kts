@@ -92,6 +92,13 @@ fun Project.publishConfig() {
                 && hasProperty("signing.password")    // configured in the ~/.gradle/gradle.properties file
                 && hasProperty("signing.secretKeyRingFile")    // configured in the ~/.gradle/gradle.properties file
             ) {
+                // Local gradle global properties
+                signAllPublications()
+            } else if (
+                hasProperty("ORG_GRADLE_PROJECT_signingInMemoryKey")    // configured in the github workflow env
+                && hasProperty("ORG_GRADLE_PROJECT_signingInMemoryKeyPassword")    // configured in the github workflow env.properties file
+            ) {
+                // github workflow
                 signAllPublications()
             }
         }
