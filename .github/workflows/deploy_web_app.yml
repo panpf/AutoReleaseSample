@@ -29,6 +29,9 @@ jobs:
         run: |
           rm -rf app/*
 
+      - name: Create app directory
+        run: mkdir -p app
+
       - name: Move build artifacts to app directory
         run: |
           mv composeApp/build/dist/wasmJs/productionExecutable/* app/
